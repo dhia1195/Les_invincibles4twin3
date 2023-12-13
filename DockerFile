@@ -1,0 +1,4 @@
+FROM openjdk:17
+EXPOSE 8097
+ADD target/Bloc-0.0.1-SNAPSHOT.jar Bloc-docker.jar
+ENTRYPOINT ["java" , "-jar" , "Bloc-docker.jar"]
