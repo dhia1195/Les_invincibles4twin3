@@ -10,8 +10,6 @@ services:
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka:8761/eureka/
 
-
-
   foyer:
     build: .\foyeer
     ports:
@@ -33,7 +31,7 @@ services:
       - MYSQL_DATABASE=foyeer
       - MYSQL_ALLOW_EMPTY_PASSWORD=true
     ports:
-      - 3307:3306
+      - "3307:3306"  # Port 3307 sur votre machine est mappé au port 3306 à l'intérieur du conteneur
 
   reservation:
     build: .\reservationn
@@ -56,7 +54,7 @@ services:
       - MYSQL_DATABASE=reservation
       - MYSQL_ALLOW_EMPTY_PASSWORD=true
     ports:
-      - 3308:3306
+      - "3308:3306"  # Port 3308 sur votre machine est mappé au port 3306 à l'intérieur du conteneur
 
   chambre:
     build: .\Chambre
@@ -66,22 +64,20 @@ services:
     image: "chambre"
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka:8761/eureka/
-      - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/chambre?useUnicode=true&useJDBCCompliantTimezoneShift=true&createDatabaseIfNotExist=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-chambre:3306/chambre?useUnicode=true&useJDBCCompliantTimezoneShift=true&createDatabaseIfNotExist=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     depends_on:
       - docker-mysql-3
       - eureka
 
   docker-mysql-3:
-      image: "mysql:5.6"
-      container_name: db-chambre
-      environment:
-        - MYSQL_ALLOW_EMPTY_PASSWORD=
-        - MYSQL_DATABASE=chambre
-        - MYSQL_ALLOW_EMPTY_PASSWORD=true
-      ports:
-        - "3308:3306"
-
-
+    image: "mysql:5.6"
+    container_name: db-chambre
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=
+      - MYSQL_DATABASE=chambre
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+    ports:
+      - "3309:3306"
 
   universite:
     build: .\UniversiteMicroService
@@ -118,6 +114,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:h2:file:./Database/Data/Bloc
     depends_on:
       - eureka
+
 
   gateway:
     build: .\gateway
