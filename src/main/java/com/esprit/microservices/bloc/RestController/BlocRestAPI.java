@@ -19,5 +19,7 @@ public class BlocRestAPI {
     Bloc addBloc(@RequestBody Bloc bloc){return iBlocService.addBloc(bloc);}
     @GetMapping("/afficherbloc/{idBloc}")
     Bloc retrieveBloc(@PathVariable("idBloc") long idBloc){return iBlocService.retrieveBloc(idBloc);}
+    @DeleteMapping("/supprimerbloc/{idBloc}")
+    String removeBloc (@PathVariable("idBloc") long idBloc){return iBlocService.removeBloc(idBloc);}
 
 }
