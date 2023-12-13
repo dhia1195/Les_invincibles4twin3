@@ -1,0 +1,4 @@
+FROM openjdk:17
+EXPOSE 8071
+ADD target/foyeer-0.0.1-SNAPSHOT.jar foyeer-docker.jar
+ENTRYPOINT ["java","-jar","foyeer-docker.jar"]
